@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
-import { DataGrid, SelectColumn, type Column } from 'react-data-grid'
+import { DataGrid, type Column, type SortColumn } from 'react-data-grid'
 import 'react-data-grid/lib/styles.css'
-import './ReactDataGridExample1.css'
+import './DataGridEx1.css'
 
 type Issue = {
   id: number
@@ -27,28 +27,37 @@ function rowKeyGetter(row: Issue) {
   return row.id
 }
 
-function ReactDataGridExample1() {
-  const [selectedRows, setSelectedRows] = useState<ReadonlySet<number>>(() => new Set())
+function compareValues(a: string | number, b: string | number) {
+  if (typeof a === 'number' && typeof b === 'number') {
+    return a - b
+  }
+
+  return String(a).localeCompare(String(b))
+}
+
+function DataGridEx1() {
+  const [sortColumns, setSortColumns] = useState<readonly SortColumn[]>([])
 
   const columns = useMemo<Column<Issue>[]>(
     () => [
-      SelectColumn,
-      { key: 'id', name: 'ID', width: 72, frozen: true },
-      { key: 'title', name: 'Task', minWidth: 240, resizable: true },
-      { key: 'owner', name: 'Owner', width: 120, resizable: true },
+      { key: 'id', name: 'ID', width: 72, frozen: true, sortable: true },
+      { key: 'title', name: 'Task', minWidth: 240, resizable: true, sortable: true },
+      { key: 'owner', name: 'Owner', width: 120, resizable: true, sortable: true },
       {
         key: 'priority',
         name: 'Priority',
         width: 120,
+        sortable: true,
         renderCell({ row }) {
           return <span className={`priority priority-${row.priority.toLowerCase()}`}>{row.priority}</span>
         }
       },
-      { key: 'status', name: 'Status', width: 140, resizable: true },
+      { key: 'status', name: 'Status', width: 140, resizable: true, sortable: true },
       {
         key: 'estimate',
         name: 'Estimate',
         width: 110,
+        sortable: true,
         renderCell({ row }) {
           return `${row.estimate}h`
         }
@@ -57,22 +66,42 @@ function ReactDataGridExample1() {
     []
   )
 
+  const sortedRows = useMemo(() => {
+    if (sortColumns.length === 0) {
+      return rows
+    }
+
+    return [...rows].sort((rowA, rowB) => {
+      for (const sort of sortColumns) {
+        const columnKey = sort.columnKey as keyof Issue
+        const direction = sort.direction === 'ASC' ? 1 : -1
+        const result = compareValues(rowA[columnKey], rowB[columnKey])
+
+        if (result !== 0) {
+          return result * direction
+        }
+      }
+
+      return 0
+    })
+  }, [sortColumns])
+
   return (
     <>
       <header className="toolbar">
         <div>
           <h1>React Data Grid</h1>
-          <p>{selectedRows.size} selected</p>
+          <p>Click any header to sort the rows</p>
         </div>
       </header>
 
       <section className="grid-panel">
         <DataGrid
           columns={columns}
-          rows={rows}
+          rows={sortedRows}
           rowKeyGetter={rowKeyGetter}
-          selectedRows={selectedRows}
-          onSelectedRowsChange={setSelectedRows}
+          sortColumns={sortColumns}
+          onSortColumnsChange={setSortColumns}
           defaultColumnOptions={{ resizable: true }}
           className="task-grid"
         />
@@ -81,4 +110,4 @@ function ReactDataGridExample1() {
   )
 }
 
-export default ReactDataGridExample1
+export default DataGridEx1

@@ -1,11 +1,66 @@
 .app-shell {
   box-sizing: border-box;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 260px minmax(0, 1fr);
   min-height: 100vh;
   padding: 32px;
 }
 
+.app-sidebar {
+  background: #ffffff;
+  border: 1px solid #d8dee8;
+  border-radius: 8px;
+  box-shadow: 0 12px 28px rgba(34, 47, 62, 0.08);
+  min-height: calc(100vh - 64px);
+  padding: 18px;
+}
+
+.app-sidebar h1 {
+  color: #15202b;
+  font-size: 18px;
+  line-height: 1.25;
+  margin: 0 0 14px;
+}
+
+.example-list {
+  display: grid;
+  gap: 8px;
+}
+
+.example-list-button {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: #334155;
+  cursor: pointer;
+  min-height: 42px;
+  padding: 10px 12px;
+  text-align: left;
+}
+
+.example-list-button:hover {
+  background: #f7f9fc;
+}
+
+.example-list-button.is-selected {
+  background: #eaf2ff;
+  border-color: #bfd7ff;
+  color: #1d4ed8;
+  font-weight: 700;
+}
+
+.app-content {
+  min-width: 0;
+}
+
 @media (max-width: 700px) {
   .app-shell {
+    grid-template-columns: 1fr;
     padding: 18px;
+  }
+
+  .app-sidebar {
+    min-height: auto;
   }
 }

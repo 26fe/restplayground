@@ -1,0 +1,123 @@
+.example2-toolbar {
+  align-items: end;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 18px;
+}
+
+.example2-toolbar h1 {
+  color: #15202b;
+  font-size: 30px;
+  font-weight: 720;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.example2-toolbar p {
+  color: #64748b;
+  font-size: 14px;
+  margin: 6px 0 0;
+}
+
+.example2-grid-panel {
+  background: #ffffff;
+  border: 1px solid #d8dee8;
+  border-radius: 8px;
+  box-shadow: 0 14px 38px rgba(34, 47, 62, 0.12);
+  overflow: hidden;
+}
+
+.example2-task-grid {
+  block-size: 520px;
+  border: 0;
+  --rdg-background-color: #ffffff;
+  --rdg-header-background-color: #f7f9fc;
+  --rdg-row-hover-background-color: #eef6ff;
+  --rdg-selection-color: #2563eb;
+}
+
+.example2-group-button {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: #15202b;
+  cursor: pointer;
+  display: inline-flex;
+  font-weight: 700;
+  gap: 8px;
+  inline-size: 100%;
+  padding: 0;
+  text-align: left;
+}
+
+.example2-group-caret {
+  color: #2563eb;
+  display: inline-block;
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  inline-size: 12px;
+}
+
+.example2-task-id {
+  background: #eaf2ff;
+  border-radius: 999px;
+  color: #1d4ed8;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+  padding: 5px 8px;
+}
+
+.example2-group-meta {
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.example2-group-value {
+  color: #15202b;
+  font-weight: 700;
+}
+
+.example2-subtask-name {
+  color: #334155;
+  padding-inline-start: 30px;
+}
+
+.example2-priority {
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 5px 9px;
+}
+
+.example2-priority-high {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.example2-priority-medium {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.example2-priority-low {
+  background: #dcfce7;
+  color: #166534;
+}
+
+@media (max-width: 700px) {
+  .example2-toolbar {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .example2-toolbar h1 {
+    font-size: 24px;
+  }
+
+  .example2-task-grid {
+    block-size: 70vh;
+  }
+}
