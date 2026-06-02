@@ -28,7 +28,7 @@
 }
 
 .example2-task-grid {
-  block-size: 520px;
+  block-size: calc(100vh - 158px);
   border: 0;
   --rdg-background-color: #ffffff;
   --rdg-header-background-color: #f7f9fc;

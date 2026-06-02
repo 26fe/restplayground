@@ -2,8 +2,7 @@
   align-items: end;
   display: flex;
   justify-content: space-between;
-  margin: 0 auto 18px;
-  max-width: 1040px;
+  margin: 0 0 18px;
 }
 
 .toolbar h1 {
@@ -25,13 +24,11 @@
   border: 1px solid #d8dee8;
   border-radius: 8px;
   box-shadow: 0 14px 38px rgba(34, 47, 62, 0.12);
-  margin: 0 auto;
-  max-width: 1040px;
   overflow: hidden;
 }
 
 .task-grid {
-  block-size: 520px;
+  block-size: calc(100vh - 158px);
   border: 0;
   --rdg-background-color: #ffffff;
   --rdg-header-background-color: #f7f9fc;
