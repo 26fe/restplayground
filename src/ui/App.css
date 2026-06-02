@@ -1,0 +1,11 @@
+.app-shell {
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: 32px;
+}
+
+@media (max-width: 700px) {
+  .app-shell {
+    padding: 18px;
+  }
+}
