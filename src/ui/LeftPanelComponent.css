@@ -1,0 +1,111 @@
+.app-sidebar {
+  background: #ffffff;
+  border: 1px solid #d8dee8;
+  border-radius: 8px;
+  box-shadow: 0 12px 28px rgba(34, 47, 62, 0.08);
+  min-height: calc(100vh - 64px);
+  min-width: 0;
+  padding: 18px;
+  position: relative;
+}
+
+.app-sidebar-header {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  margin: 0 0 14px;
+}
+
+.app-sidebar-header h1 {
+  color: #15202b;
+  font-size: 18px;
+  line-height: 1.25;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.app-sidebar-toggle {
+  align-items: center;
+  background: #f7f9fc;
+  border: 1px solid #d8dee8;
+  border-radius: 6px;
+  color: #334155;
+  cursor: pointer;
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-weight: 800;
+  block-size: 30px;
+  inline-size: 30px;
+  justify-content: center;
+  padding: 0;
+}
+
+.example-tree {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.app-sidebar-resize {
+  background: transparent;
+  border: 0;
+  cursor: col-resize;
+  inset-block: 12px;
+  inset-inline-end: -13px;
+  padding: 0;
+  position: absolute;
+  inline-size: 24px;
+}
+
+.app-sidebar-resize::after {
+  background: #cbd5e1;
+  border-radius: 999px;
+  content: "";
+  display: block;
+  block-size: 100%;
+  inline-size: 3px;
+  margin-inline: auto;
+}
+
+.app-sidebar-resize:hover::after {
+  background: #2563eb;
+}
+
+.is-sidebar-collapsed .app-sidebar {
+  padding: 10px 8px;
+}
+
+.is-sidebar-collapsed .app-sidebar-header {
+  justify-content: center;
+}
+
+.is-sidebar-collapsed .app-sidebar-header h1,
+.is-sidebar-collapsed .example-tree-node-full-name,
+.is-sidebar-collapsed .app-sidebar-resize {
+  display: none;
+}
+
+.is-sidebar-collapsed .example-tree-node-button {
+  justify-content: center;
+  padding: 8px 0;
+}
+
+.is-sidebar-collapsed .example-tree-node-toggle {
+  display: none;
+}
+
+.is-sidebar-collapsed .example-tree-node-short-name {
+  display: inline;
+}
+
+@media (max-width: 700px) {
+  .app-sidebar {
+    min-height: auto;
+  }
+
+  .app-sidebar-resize {
+    display: none;
+  }
+}

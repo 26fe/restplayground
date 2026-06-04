@@ -1,0 +1,56 @@
+.example-tree-node {
+  align-items: center;
+  display: flex;
+  min-width: 0;
+}
+
+.example-tree-node-button {
+  align-items: center;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: #334155;
+  cursor: pointer;
+  display: flex;
+  gap: 8px;
+  min-height: 34px;
+  min-width: 0;
+  padding: 7px 10px;
+  text-align: left;
+  width: 100%;
+}
+
+.example-tree-node-button:hover {
+  background: #f7f9fc;
+}
+
+.example-tree-node.is-group .example-tree-node-button {
+  color: #15202b;
+  font-weight: 800;
+}
+
+.example-tree-node.is-selected .example-tree-node-button {
+  background: #eaf2ff;
+  border-color: #bfd7ff;
+  color: #1d4ed8;
+  font-weight: 700;
+}
+
+.example-tree-node-toggle {
+  color: #64748b;
+  flex: 0 0 12px;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+  text-align: center;
+}
+
+.example-tree-node-short-name {
+  display: none;
+}
+
+.example-tree-node-full-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

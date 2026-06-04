@@ -1,90 +1,66 @@
-import { useState } from 'react'
-import DataGridEx1 from './DataGridEx1'
-import DataGridEx2 from './DataGridEx2'
-import DataGridEx3 from './DataGridEx3'
+import { useState, type CSSProperties } from 'react'
+import DataGridEx1 from './data_grid/DataGridEx1'
+import DataGridEx2 from './data_grid/DataGridEx2'
+import DataGridEx3 from './data_grid/DataGridEx3'
+import PlotlyEx1 from './plotly/PlotlyEx1'
+import { type ExampleTreeNodeData } from './ExampleTreeNode'
+import LeftPanelComponent, { collapsedLeftPanelWidth, defaultLeftPanelWidth } from './LeftPanelComponent'
 import './App.css'
 
-const examples = [
+const dataGridExamples = [
   { id: 'example-1', name: 'DataGridEx1', component: DataGridEx1 },
   { id: 'example-2', name: 'DataGridEx2', component: DataGridEx2 },
   { id: 'example-3', name: 'DataGridEx3', component: DataGridEx3 }
 ] as const
 
-const collapsedSidebarWidth = 56
-const defaultSidebarWidth = 260
-const maxSidebarWidth = 420
-const minSidebarWidth = 180
+const plotlyExamples = [{ id: 'plotly-example-1', name: 'PlotlyEx1', component: PlotlyEx1 }] as const
+const examples = [...dataGridExamples, ...plotlyExamples] as const
+
+type ExampleId = (typeof examples)[number]['id']
+
+const exampleTreeData: ExampleTreeNodeData<ExampleId>[] = [
+  {
+    id: 'data-grid',
+    name: 'Data Grid',
+    children: dataGridExamples.map((example) => ({
+      id: example.id,
+      name: example.name,
+      exampleId: example.id
+    }))
+  },
+  {
+    id: 'plotly',
+    name: 'Plotly',
+    children: plotlyExamples.map((example) => ({
+      id: example.id,
+      name: example.name,
+      exampleId: example.id
+    }))
+  }
+]
 
 function App() {
-  const [selectedExampleId, setSelectedExampleId] = useState<(typeof examples)[number]['id']>('example-1')
+  const [selectedExampleId, setSelectedExampleId] = useState<ExampleId>('example-1')
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
-  const [sidebarWidth, setSidebarWidth] = useState(defaultSidebarWidth)
+  const [sidebarWidth, setSidebarWidth] = useState(defaultLeftPanelWidth)
   const selectedExample = examples.find((example) => example.id === selectedExampleId) ?? examples[0]
   const SelectedExample = selectedExample.component
-  const currentSidebarWidth = isSidebarCollapsed ? collapsedSidebarWidth : sidebarWidth
-
-  function startSidebarResize(event: React.PointerEvent<HTMLButtonElement>) {
-    if (isSidebarCollapsed) {
-      return
-    }
-
-    const initialPointerX = event.clientX
-    const initialSidebarWidth = sidebarWidth
-
-    function handlePointerMove(moveEvent: PointerEvent) {
-      const nextWidth = initialSidebarWidth + moveEvent.clientX - initialPointerX
-      setSidebarWidth(Math.min(maxSidebarWidth, Math.max(minSidebarWidth, nextWidth)))
-    }
-
-    function handlePointerUp() {
-      window.removeEventListener('pointermove', handlePointerMove)
-      window.removeEventListener('pointerup', handlePointerUp)
-    }
-
-    window.addEventListener('pointermove', handlePointerMove)
-    window.addEventListener('pointerup', handlePointerUp)
-  }
+  const currentSidebarWidth = isSidebarCollapsed ? collapsedLeftPanelWidth : sidebarWidth
 
   return (
     <main
       className={isSidebarCollapsed ? 'app-shell is-sidebar-collapsed' : 'app-shell'}
-      style={{ '--app-sidebar-width': `${currentSidebarWidth}px` } as React.CSSProperties}
+      style={{ '--app-sidebar-width': `${currentSidebarWidth}px` } as CSSProperties}
     >
-      <aside className="app-sidebar" aria-label="Examples">
-        <header className="app-sidebar-header">
-          <h1>Examples</h1>
-          <button
-            className="app-sidebar-toggle"
-            type="button"
-            aria-label={isSidebarCollapsed ? 'Expand examples panel' : 'Collapse examples panel'}
-            onClick={() => setIsSidebarCollapsed((current) => !current)}
-          >
-            {isSidebarCollapsed ? '>' : '<'}
-          </button>
-        </header>
-
-        <nav className="example-list" aria-label="Data grid examples">
-          {examples.map((example) => (
-            <button
-              className={example.id === selectedExample.id ? 'example-list-button is-selected' : 'example-list-button'}
-              key={example.id}
-              type="button"
-              title={example.name}
-              onClick={() => setSelectedExampleId(example.id)}
-            >
-              <span className="example-list-short-name">{example.name.replace('DataGridEx', 'Ex')}</span>
-              <span className="example-list-full-name">{example.name}</span>
-            </button>
-          ))}
-        </nav>
-
-        <button
-          className="app-sidebar-resize"
-          type="button"
-          aria-label="Resize examples panel"
-          onPointerDown={startSidebarResize}
-        />
-      </aside>
+      <LeftPanelComponent
+        isCollapsed={isSidebarCollapsed}
+        selectedExampleId={selectedExampleId}
+        treeData={exampleTreeData}
+        width={currentSidebarWidth}
+        onCollapseChange={setIsSidebarCollapsed}
+        onExampleSelect={setSelectedExampleId}
+        onWidthChange={setSidebarWidth}
+      />
 
       <section className="app-content" aria-label={selectedExample.name}>
         <SelectedExample />
