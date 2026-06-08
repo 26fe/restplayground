@@ -1,0 +1,84 @@
+.d3js-ex1 {
+  color: #1f2937;
+  display: grid;
+  gap: 18px;
+}
+
+.d3js-ex1-header {
+  display: grid;
+  gap: 4px;
+}
+
+.d3js-ex1-header p {
+  color: #7c2d12;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.d3js-ex1-header h1 {
+  font-size: 28px;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.d3js-ex1-chart {
+  background: #ffffff;
+  border: 1px solid #d8dee8;
+  border-radius: 8px;
+  box-shadow: 0 12px 28px rgba(34, 47, 62, 0.08);
+  height: 500px;
+  min-width: 0;
+  padding: 18px;
+}
+
+.d3js-ex1-chart svg {
+  display: block;
+  height: 100%;
+  overflow: visible;
+  width: 100%;
+}
+
+.d3js-ex1-bar {
+  fill: #0f766e;
+}
+
+.d3js-ex1-value {
+  fill: #1f2937;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.d3js-ex1-grid path,
+.d3js-ex1-grid .domain {
+  display: none;
+}
+
+.d3js-ex1-grid line {
+  stroke: #e5e7eb;
+}
+
+.d3js-ex1-x-axis path,
+.d3js-ex1-y-axis path {
+  stroke: #cbd5e1;
+}
+
+.d3js-ex1-x-axis line,
+.d3js-ex1-y-axis line {
+  stroke: #cbd5e1;
+}
+
+.d3js-ex1-x-axis text,
+.d3js-ex1-y-axis text {
+  fill: #475569;
+  font-size: 13px;
+}
+
+@media (max-width: 700px) {
+  .d3js-ex1-chart {
+    height: 420px;
+    padding: 10px;
+  }
+}

@@ -1,0 +1,42 @@
+.plotly-ex2 {
+  color: #1f2937;
+  display: grid;
+  gap: 18px;
+}
+
+.plotly-ex2-header {
+  display: grid;
+  gap: 4px;
+}
+
+.plotly-ex2-header p {
+  color: #0f766e;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.plotly-ex2-header h1 {
+  font-size: 28px;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.plotly-ex2-chart {
+  background: #ffffff;
+  border: 1px solid #d8dee8;
+  border-radius: 8px;
+  box-shadow: 0 12px 28px rgba(34, 47, 62, 0.08);
+  min-height: 500px;
+  min-width: 0;
+  padding: 18px;
+}
+
+@media (max-width: 700px) {
+  .plotly-ex2-chart {
+    min-height: 420px;
+    padding: 10px;
+  }
+}

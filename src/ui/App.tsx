@@ -2,7 +2,9 @@ import { useState, type CSSProperties } from 'react'
 import DataGridEx1 from './data_grid/DataGridEx1'
 import DataGridEx2 from './data_grid/DataGridEx2'
 import DataGridEx3 from './data_grid/DataGridEx3'
+import D3jsEx1 from './d3js/D3jsEx1'
 import PlotlyEx1 from './plotly/PlotlyEx1'
+import PlotlyEx2 from './plotly/PlotlyEx2'
 import { type ExampleTreeNodeData } from './ExampleTreeNode'
 import LeftPanelComponent, { collapsedLeftPanelWidth, defaultLeftPanelWidth } from './LeftPanelComponent'
 import './App.css'
@@ -13,8 +15,13 @@ const dataGridExamples = [
   { id: 'example-3', name: 'DataGridEx3', component: DataGridEx3 }
 ] as const
 
-const plotlyExamples = [{ id: 'plotly-example-1', name: 'PlotlyEx1', component: PlotlyEx1 }] as const
-const examples = [...dataGridExamples, ...plotlyExamples] as const
+const d3jsExamples = [{ id: 'd3js-example-1', name: 'D3jsEx1', component: D3jsEx1 }] as const
+
+const plotlyExamples = [
+  { id: 'plotly-example-1', name: 'PlotlyEx1', component: PlotlyEx1 },
+  { id: 'plotly-example-2', name: 'PlotlyEx2', component: PlotlyEx2 }
+] as const
+const examples = [...dataGridExamples, ...d3jsExamples, ...plotlyExamples] as const
 
 type ExampleId = (typeof examples)[number]['id']
 
@@ -36,13 +43,24 @@ const exampleTreeData: ExampleTreeNodeData<ExampleId>[] = [
       name: example.name,
       exampleId: example.id
     }))
+  },
+  {
+    id: 'd3js',
+    name: 'D3js',
+    children: d3jsExamples.map((example) => ({
+      id: example.id,
+      name: example.name,
+      exampleId: example.id
+    }))
   }
 ]
 
 function App() {
+  
   const [selectedExampleId, setSelectedExampleId] = useState<ExampleId>('example-1')
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
   const [sidebarWidth, setSidebarWidth] = useState(defaultLeftPanelWidth)
+
   const selectedExample = examples.find((example) => example.id === selectedExampleId) ?? examples[0]
   const SelectedExample = selectedExample.component
   const currentSidebarWidth = isSidebarCollapsed ? collapsedLeftPanelWidth : sidebarWidth
